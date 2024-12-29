@@ -6,9 +6,9 @@
   }
   
   body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f9f9f9;
+    background-color: #f4f4f9;
     color: #333;
   }
   
@@ -27,6 +27,10 @@
     margin-left: 1rem;
   }
   
+  .navbar nav a:hover {
+    text-decoration: underline;
+  }
+  
   .hero {
     text-align: center;
     padding: 5rem 2rem;
@@ -35,18 +39,23 @@
   }
   
   .hero .cta-btn {
+    display: inline-block;
     margin-top: 1rem;
     padding: 1rem 2rem;
-    background-color: #fff;
+    background-color: white;
     color: #6200ea;
-    border: none;
+    text-decoration: none;
     border-radius: 5px;
-    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .hero .cta-btn:hover {
+    background-color: #ddd;
   }
   
   #features {
     padding: 3rem 2rem;
-    background-color: #f3f3f3;
+    background-color: #fff;
   }
   
   .feature-list {
@@ -58,5 +67,18 @@
   .feature {
     max-width: 30%;
     text-align: center;
+  }
+  
+  #about {
+    padding: 3rem 2rem;
+    background-color: #f4f4f9;
+    text-align: center;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #333;
+    color: white;
   }
   

@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Mema Landing Page Loaded!');
+    console.log('Welcome to Mema!');
     
-    // Example Event Handler
-    document.querySelector('.cta-btn').addEventListener('click', () => {
-      alert('Thank you for joining Mema!');
+    const ctaBtn = document.querySelector('.cta-btn');
+    ctaBtn.addEventListener('click', () => {
+      alert('Thank you for exploring Mema!');
     });
   });
   
