@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Chat App</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#settings">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <aside class="channels">
+            <h2>Channels</h2>
+            <ul>
+                <li>#general</li>
+                <li>#random</li>
+                <li>#tech-talk</li>
+            </ul>
+        </aside>
+        <section class="chat">
+            <div class="messages">
+                <div class="message">
+                    <span class="username">User1:</span>
+                    <span class="text">Hello, world!</span>
+                </div>
+                <div class="message">
+                    <span class="username">User2:</span>
+                    <span class="text">Hi there!</span>
+                </div>
+            </div>
+            <form class="message-form">
+                <input type="text" placeholder="Type a message..." />
+                <button type="submit">Send</button>
+            </form>
+        </section>
+        <aside class="trending">
+            <h2>Trending</h2>
+            <ul>
+                <li>#javascript</li>
+                <li>#webdev</li>
+                <li>#chatapp</li>
+            </ul>
+        </aside>
+    </main>
+    <footer>
+        <p>&copy; 2023 Chat App</p>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>

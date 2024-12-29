@@ -3,42 +3,46 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
     line-height: 1.6;
     background-color: #f4f4f9;
     color: #333;
-  }
-  
-  .navbar {
+}
+
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
     background-color: #6200ea;
     color: white;
-  }
-  
-  .navbar nav a {
+}
+
+.navbar nav a {
     color: white;
     text-decoration: none;
-    margin-left: 1rem;
-  }
-  
-  .navbar nav a:hover {
+}
+
+.navbar nav a:hover {
     text-decoration: underline;
-  }
-  
-  .hero {
+}
+
+.hero {
     text-align: center;
     padding: 5rem 2rem;
     background: linear-gradient(135deg, #6200ea, #8e44ad);
     color: white;
-  }
-  
-  .hero .cta-btn {
+}
+
+.hero .cta-btn {
     display: inline-block;
     margin-top: 1rem;
     padding: 1rem 2rem;
@@ -47,38 +51,134 @@
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
-  }
-  
-  .hero .cta-btn:hover {
+}
+
+.hero .cta-btn:hover {
     background-color: #ddd;
-  }
-  
-  #features {
+}
+
+#features {
     padding: 3rem 2rem;
     background-color: #fff;
-  }
-  
-  .feature-list {
+}
+
+.feature-list {
     display: flex;
     justify-content: space-around;
     margin-top: 2rem;
-  }
-  
-  .feature {
+}
+
+.feature {
     max-width: 30%;
     text-align: center;
-  }
-  
-  #about {
+}
+
+#about {
     padding: 3rem 2rem;
     background-color: #f4f4f9;
     text-align: center;
-  }
-  
-  footer {
+}
+
+footer {
     text-align: center;
     padding: 1rem 0;
     background-color: #333;
     color: white;
-  }
-  
+}
+
+/* Chat App Specific Styles */
+header {
+    background-color: #6200ea;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav li {
+    margin-left: 1rem;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    flex: 1;
+}
+
+aside {
+    background-color: #f4f4f4;
+    padding: 1rem;
+    width: 20%;
+    box-sizing: border-box;
+}
+
+.channels ul, .trending ul {
+    list-style: none;
+    padding: 0;
+}
+
+.channels li, .trending li {
+    margin-bottom: 0.5rem;
+}
+
+.chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 1rem;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.message-form {
+    display: flex;
+    border-top: 1px solid #ddd;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.message-form input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+}
+
+.message-form button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #6200ea;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
