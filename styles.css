@@ -71,6 +71,99 @@ body {
     transform: scale(1.2);
 }
 
+.brutalist-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 169px;
+    height: 60px;
+    background: linear-gradient(135deg, #a47cf3, #b084f5); /* Lighter purple and blue gradient */
+    color: #fff;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    border: 3px solid #fff;
+    outline: 3px solid #000;
+    box-shadow: 6px 6px 0 #00a4ef;
+    transition: all 0.1s ease-out;
+    padding: 0 15px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    margin: 20px auto; /* Move the button down by 20 pixels and center it */
+    border-bottom: 3px solid #000; /* Black line at the bottom */
+}
+
+.brutalist-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: none; /* Remove the white line */
+    z-index: 1;
+    transition: none;
+}
+
+@keyframes slide {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.brutalist-button:hover::before {
+    /* Show the pseudo-element on hover */
+    opacity: 1;
+    animation: slide 2s infinite;
+}
+
+.brutalist-button:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0 #000;
+    background: linear-gradient(135deg, #a47cf3, #b084f5); /* Lighter purple and blue gradient */
+    color: #fff;
+}
+
+.brutalist-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0 #00a4ef;
+    background-color: #fff;
+    color: #000;
+    border-color: #000;
+}
+
+.button-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    transition: transform 0.2s ease-out;
+    position: relative;
+    z-index: 1;
+}
+
+.brutalist-button:hover .button-text {
+    transform: skew(-5deg);
+}
+
+.brutalist-button:active .button-text {
+    transform: skew(5deg);
+}
+
+.button-text span:first-child {
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.button-text span:last-child {
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
 #features {
     padding: 3rem 2rem;
     background-color: #fff;
