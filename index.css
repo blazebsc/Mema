@@ -1,0 +1,97 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+  }
+  
+  header.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #343a40;
+    color: #ffffff;
+  }
+  
+  header.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  header.navbar nav a {
+    margin-left: 1rem;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  header.navbar nav a:hover {
+    text-decoration: underline;
+  }
+  
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    color: #115dfc;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    color: #555555;
+  }
+  
+  .brutalist-button {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    background-color: #115dfc;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .brutalist-button:hover {
+    background-color: #0d47a1;
+  }
+  
+  #features, #about {
+    padding: 3rem 2rem;
+  }
+  
+  #features h2, #about h2 {
+    font-size: 2rem;
+    text-align: center;
+    color: #115dfc;
+  }
+  
+  .feature-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .feature {
+    max-width: 300px;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #343a40;
+    color: #ffffff;
+  }
+  
