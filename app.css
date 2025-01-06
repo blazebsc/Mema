@@ -1,109 +1,227 @@
 /* General Styles */
 body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     margin: 0;
-    font-family: Arial, sans-serif;
     background-color: #f5f5f5;
-    color: #212121;
-  }
-  
-  header {
+    color: #333333;
+    transition: background-color 0.3s;
+}
+
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
     background-color: #115dfc;
     color: #ffffff;
-  }
-  
-  header h1 {
+}
+
+header h1 {
     margin: 0;
-  }
-  
-  header nav ul {
+}
+
+header nav ul {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-  
-  header nav ul li {
+}
+
+header nav ul li {
     margin-left: 1rem;
-  }
-  
-  header nav ul li a {
+}
+
+header nav ul li a {
     color: #ffffff;
     text-decoration: none;
-  }
-  
-  main {
+}
+
+main {
     display: flex;
     gap: 1rem;
     padding: 1rem;
-  }
-  
-  aside {
+}
+
+aside {
     flex: 1;
     background-color: #ffffff;
     border-radius: 8px;
     padding: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  section.chat {
+}
+
+section.chat {
     flex: 3;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
-  
-  section.chat .messages {
+}
+
+section.chat .messages {
     flex: 1;
     overflow-y: auto;
     background-color: #ffffff;
     border-radius: 8px;
     padding: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  section.chat .messages .message {
+}
+
+section.chat .messages .message {
     margin-bottom: 1rem;
-  }
-  
-  section.chat .messages .message .username {
+}
+
+section.chat .messages .message .username {
     font-weight: bold;
     color: #115dfc;
-  }
-  
-  section.chat .messages .message .text {
+}
+
+section.chat .messages .message .text {
     margin-left: 0.5rem;
     color: #555555;
-  }
-  
-  form.message-form {
+}
+
+form.message-form {
     display: flex;
     gap: 1rem;
-  }
-  
-  form.message-form input {
+}
+
+form.message-form input {
     flex: 1;
     padding: 0.5rem;
     border: 1px solid #cccccc;
     border-radius: 5px;
-  }
-  
-  form.message-form button {
+}
+
+form.message-form button {
     padding: 0.5rem 1rem;
     background-color: #115dfc;
     border: none;
     color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  footer {
+}
+
+footer {
     text-align: center;
     padding: 1rem;
     background-color: #115dfc;
     color: #ffffff;
-  }
-  
+}
+
+#dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.switch-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85em;
+    font-weight: 500;
+    margin: 0 10px;
+    color: #333333;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cccccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #666666;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+h1 {
+    font-size: 2.3em;
+    color: #333333;
+    font-weight: 600;
+    margin: 15px 0;
+}
+
+p {
+    font-size: 0.85em;
+    color: #666666;
+    margin-bottom: 30px;
+}
+
+.logout-button {
+    padding: 12px 30px;
+    border-radius: 30px;
+    background-color: #333333;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85em;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #444444;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+body.dark-mode h1,
+body.dark-mode .switch-label {
+    color: #ffffff;
+}
+
+body.dark-mode p {
+    color: #999999;
+}
+
+body.dark-mode .logout-button {
+    background-color: #666666;
+}
+
+body.dark-mode .logout-button:hover {
+    background-color: #777777;
+}

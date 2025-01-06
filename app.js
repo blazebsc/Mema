@@ -1,3 +1,42 @@
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    const toggleCheckbox = document.getElementById('dark-mode-checkbox');
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        if (toggleCheckbox) toggleCheckbox.checked = true;
+    }
+
+    // Listen for changes
+    if (toggleCheckbox) {
+        toggleCheckbox.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+    }
+
+    // Only check auth on app.html
+    const currentPage = window.location.pathname;
+    if (currentPage.includes('app.html')) {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const username = localStorage.getItem('username');
+
+        if (!isLoggedIn || !username) {
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('username').textContent = username;
+        }
+    }
+});
+
+function handleLogout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
+    window.location.href = 'login.html';
+}
+
 // Toggle password visibility
 document.querySelector('.toggle-password').addEventListener('click', () => {
     const passwordField = document.getElementById('password_field');
@@ -49,4 +88,3 @@ document.querySelector('.toggle-password').addEventListener('click', () => {
       }, 2000);
     }
   });
-  

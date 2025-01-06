@@ -6,6 +6,9 @@
     <title>Mema - Chat and Connect</title>
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <script src="theme.js"></script>
+    <script src="index.js" defer></script>
 </head>
 <body>
   <header class="navbar">
@@ -17,6 +20,14 @@
   </header>
 
   <section class="hero">
+    <div id="dark-mode-toggle">
+      <span class="switch-label">Light</span>
+      <label class="switch">
+        <input type="checkbox" id="dark-mode-checkbox">
+        <span class="slider"></span>
+      </label>
+      <span class="switch-label">Dark</span>
+    </div>
     <h1>Welcome to Mema</h1>
     <p>The ultimate app to chat, share, and connect. A perfect blend of Twitter (X) and Discord for all your social needs.</p>
     <a href="login.html" class="brutalist-button">
