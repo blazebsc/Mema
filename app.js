@@ -40,8 +40,7 @@ function handleLogout() {
 // Toggle password visibility
 document.querySelector('.toggle-password').addEventListener('click', () => {
     const passwordField = document.getElementById('password_field');
-    const type = passwordField.type === 'password' ? 'text' : 'password';
-    passwordField.type = type;
+    passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
   });
   
   // Form validation and submission
