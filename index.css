@@ -8,12 +8,12 @@ body {
 }
 
 header.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #333333;
-    color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #333333;
+  color: #ffffff;
 }
 
 header.navbar .logo {
@@ -215,4 +215,14 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(26px);
+}
+
+header.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #333333;
+    color: #ffffff;
+    width: 100%;
 }

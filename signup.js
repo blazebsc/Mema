@@ -18,6 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+}
+
 function handleSignup(event) {
     event.preventDefault();
     const username = document.getElementById('newUsername').value;

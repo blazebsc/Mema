@@ -1,19 +1,29 @@
-// Create new shared theme utility
-function initTheme() {
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     const toggleCheckbox = document.getElementById('dark-mode-checkbox');
     
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark');
         if (toggleCheckbox) toggleCheckbox.checked = true;
     }
 
     // Listen for changes
     if (toggleCheckbox) {
         toggleCheckbox.addEventListener('change', () => {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            document.documentElement.classList.toggle('dark');
+            const newTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
         });
+    }
+});
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
     }
 }

@@ -12,8 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for changes
     if (toggleCheckbox) {
         toggleCheckbox.addEventListener('change', () => {
+            console.log('Dark mode toggle changed'); // Debugging log
             document.body.classList.toggle('dark-mode');
-            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            const newTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+            console.log('New theme:', newTheme); // Debugging log
+            console.log('Body classes:', document.body.classList); // Debugging log
+            localStorage.setItem('theme', newTheme);
         });
     }
 
@@ -31,6 +35,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    console.log('Saved theme:', savedTheme); // Debugging log
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        console.log('Dark mode class added'); // Debugging log
+    } else {
+        document.body.classList.remove('dark-mode');
+        console.log('Dark mode class removed'); // Debugging log
+    }
+}
+
 function handleLogout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('username');
@@ -41,49 +57,49 @@ function handleLogout() {
 document.querySelector('.toggle-password').addEventListener('click', () => {
     const passwordField = document.getElementById('password_field');
     passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
-  });
-  
-  // Form validation and submission
-  document.querySelector('.form_container').addEventListener('submit', (event) => {
+});
+
+// Form validation and submission
+document.querySelector('.form_container').addEventListener('submit', (event) => {
     event.preventDefault(); // Prevent default submission
-  
+
     const emailField = document.getElementById('email_field');
     const passwordField = document.getElementById('password_field');
     const emailError = document.getElementById('email-error');
     const passwordError = document.getElementById('password-error');
-  
+
     let isValid = true;
-  
+
     // Email validation
     if (!emailField.value.includes('@')) {
-      emailError.style.display = 'block';
-      emailError.textContent = 'Please enter a valid email address.';
-      isValid = false;
+        emailError.style.display = 'block';
+        emailError.textContent = 'Please enter a valid email address.';
+        isValid = false;
     } else {
-      emailError.style.display = 'none';
+        emailError.style.display = 'none';
     }
-  
+
     // Password validation
     if (passwordField.value.length < 6) {
-      passwordError.style.display = 'block';
-      passwordError.textContent = 'Password must be at least 6 characters.';
-      isValid = false;
+        passwordError.style.display = 'block';
+        passwordError.textContent = 'Password must be at least 6 characters.';
+        isValid = false;
     } else {
-      passwordError.style.display = 'none';
+        passwordError.style.display = 'none';
     }
-  
+
     if (isValid) {
-      const btnText = document.getElementById('btn-text');
-      const spinner = document.getElementById('spinner');
-  
-      btnText.style.display = 'none';
-      spinner.style.display = 'block';
-  
-      // Simulate form submission delay
-      setTimeout(() => {
-        alert('Form submitted successfully!');
-        btnText.style.display = 'block';
-        spinner.style.display = 'none';
-      }, 2000);
+        const btnText = document.getElementById('btn-text');
+        const spinner = document.getElementById('spinner');
+
+        btnText.style.display = 'none';
+        spinner.style.display = 'block';
+
+        // Simulate form submission delay
+        setTimeout(() => {
+            alert('Form submitted successfully!');
+            btnText.style.display = 'block';
+            spinner.style.display = 'none';
+        }, 2000);
     }
-  });
+});
