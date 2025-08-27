@@ -1,8 +1,0 @@
-/* filepath: /C:/Users/blake7/Desktop/Git/Mema/styles/globals.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  @apply font-poppins;
-}
