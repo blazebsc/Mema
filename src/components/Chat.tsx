@@ -57,7 +57,7 @@ export default function Chat() {
     localStorage.getItem('darkMode') === 'true' || window.matchMedia('(prefers-color-scheme: dark)').matches
   )
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const typingTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
+  const typingTimeoutRef = useRef<number | undefined>(undefined)
   const messageInputRef = useRef<HTMLInputElement>(null)
 
   // Common emojis for quick access
@@ -194,7 +194,7 @@ export default function Chat() {
     }, 1000)
   }
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       if (editingMessage) {
@@ -619,8 +619,8 @@ export default function Chat() {
                     </div>
                     <div className="flex space-x-1 mt-1">
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'} as React.CSSProperties}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'} as React.CSSProperties}></div>
                     </div>
                   </div>
                 </div>
