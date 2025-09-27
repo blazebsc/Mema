@@ -23,7 +23,7 @@ export default function Chat() {
   const [isJoined, setIsJoined] = useState(false)
   const [isTyping, setIsTyping] = useState<string[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const typingTimeoutRef = useRef<NodeJS.Timeout>()
+  const typingTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })

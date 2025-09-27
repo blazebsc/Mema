@@ -6,8 +6,6 @@ import {
   Zap, 
   Shield, 
   Smartphone, 
-  Globe, 
-  Star,
   ArrowRight,
   Github,
   Twitter,
