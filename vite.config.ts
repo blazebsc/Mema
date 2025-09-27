@@ -2,12 +2,12 @@ import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [
     tailwindcss(),
   ],
-  base: '/Mema/',
+  base: command === 'build' ? '/Mema/' : '/',
   esbuild: {
     jsx: 'automatic'
   }
-})
+}))

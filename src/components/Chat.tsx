@@ -16,7 +16,8 @@ import {
   User,
   Clock,
   Check,
-  CheckCheck
+  CheckCheck,
+  MessageCircle
 } from 'lucide-react'
 
 interface Message {
