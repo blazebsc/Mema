@@ -19,6 +19,7 @@ import {
   CheckCheck,
   MessageCircle
 } from 'lucide-react'
+import socket from '../socket'
 
 interface Message {
   id: string
@@ -90,6 +91,100 @@ export default function Chat() {
     }
   }, [darkMode])
 
+  // Socket.IO event listeners
+  useEffect(() => {
+    // Listen for message history when joining
+    socket.on('messages:history', (history) => {
+      setMessages(history.map((msg: any) => ({
+        ...msg,
+        timestamp: new Date(msg.timestamp)
+      })))
+    })
+
+    // Listen for new messages
+    socket.on('message:new', (message) => {
+      setMessages(prev => [...prev, {
+        ...message,
+        timestamp: new Date(message.timestamp)
+      }])
+    })
+
+    // Listen for message edits
+    socket.on('message:edited', (data) => {
+      setMessages(prev => prev.map(msg =>
+        msg.id === data.messageId
+          ? { ...msg, message: data.message, isEdited: true }
+          : msg
+      ))
+    })
+
+    // Listen for message deletes
+    socket.on('message:deleted', (messageId) => {
+      setMessages(prev => prev.filter(msg => msg.id !== messageId))
+    })
+
+    // Listen for reactions
+    socket.on('message:reacted', (data) => {
+      setMessages(prev => prev.map(msg => {
+        if (msg.id === data.messageId) {
+          const reactions = { ...msg.reactions }
+          if (!reactions[data.emoji]) {
+            reactions[data.emoji] = []
+          }
+          
+          const userIndex = reactions[data.emoji].indexOf(data.username)
+          if (userIndex === -1) {
+            reactions[data.emoji].push(data.username)
+          } else {
+            reactions[data.emoji].splice(userIndex, 1)
+            if (reactions[data.emoji].length === 0) {
+              delete reactions[data.emoji]
+            }
+          }
+          
+          return { ...msg, reactions }
+        }
+        return msg
+      }))
+    })
+
+    // Listen for user updates
+    socket.on('users:update', (userList) => {
+      setUsers(userList.map((user: any) => ({
+        ...user,
+        lastSeen: user.lastSeen ? new Date(user.lastSeen) : undefined
+      })))
+    })
+
+    // Listen for typing indicators
+    socket.on('user:typing', (data) => {
+      if (data.isTyping) {
+        setIsTyping(prev => prev.includes(data.username) ? prev : [...prev, data.username])
+      } else {
+        setIsTyping(prev => prev.filter(u => u !== data.username))
+      }
+    })
+
+    return () => {
+      socket.off('messages:history')
+      socket.off('message:new')
+      socket.off('message:edited')
+      socket.off('message:deleted')
+      socket.off('message:reacted')
+      socket.off('users:update')
+      socket.off('user:typing')
+    }
+  }, [])
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (isJoined) {
+        socket.disconnect()
+      }
+    }
+  }, [isJoined])
+
   // Filter messages based on search query
   const filteredMessages = searchQuery
     ? messages.filter(msg => 
@@ -98,43 +193,23 @@ export default function Chat() {
       )
     : messages
 
-  // Simulate real-time features with local state
+  // Connect to socket and join chat
   const joinChat = () => {
     if (!username.trim()) return
     
-    const newUser: User = {
-      id: uuidv4(),
-      username: username.trim(),
-      isOnline: true,
-      lastSeen: new Date()
-    }
+    // Connect to socket server
+    socket.connect()
     
-    setUsers(prev => [...prev, newUser])
+    // Emit join event
+    socket.emit('user:join', { username: username.trim() })
+    
     setIsJoined(true)
-    
-    // Add system message
-    const systemMessage: Message = {
-      id: uuidv4(),
-      username: 'System',
-      message: `${username.trim()} joined the chat`,
-      timestamp: new Date(),
-      isSystem: true,
-      status: 'delivered'
-    }
-    setMessages(prev => [...prev, systemMessage])
   }
 
   const leaveChat = () => {
-    const systemMessage: Message = {
-      id: uuidv4(),
-      username: 'System',
-      message: `${username} left the chat`,
-      timestamp: new Date(),
-      isSystem: true,
-      status: 'delivered'
-    }
-    setMessages(prev => [...prev, systemMessage])
-    setUsers(prev => prev.filter(user => user.username !== username))
+    socket.disconnect()
+    setUsers([])
+    setMessages([])
     setIsJoined(false)
     setUsername('')
     setReplyingTo(null)
@@ -144,43 +219,30 @@ export default function Chat() {
   const sendMessage = () => {
     if (!currentMessage.trim() || !isJoined) return
 
-    const newMessage: Message = {
+    const newMessage = {
       id: uuidv4(),
-      username,
       message: currentMessage.trim(),
       timestamp: new Date(),
       replyTo: replyingTo?.id,
-      status: 'sending',
       reactions: {}
     }
 
-    setMessages(prev => [...prev, newMessage])
+    // Emit message to server
+    socket.emit('message:send', newMessage)
+    
     setCurrentMessage('')
     setReplyingTo(null)
     
-    // Simulate message delivery status
-    setTimeout(() => {
-      setMessages(prev => prev.map(msg => 
-        msg.id === newMessage.id ? { ...msg, status: 'sent' } : msg
-      ))
-    }, 100)
-    
-    setTimeout(() => {
-      setMessages(prev => prev.map(msg => 
-        msg.id === newMessage.id ? { ...msg, status: 'delivered' } : msg
-      ))
-    }, 500)
-    
     // Remove typing indicator
-    setIsTyping(prev => prev.filter(user => user !== username))
+    socket.emit('user:typing', false)
   }
 
   const handleTyping = (value: string) => {
     setCurrentMessage(value)
     
-    // Add typing indicator
-    if (value.trim() && !isTyping.includes(username)) {
-      setIsTyping(prev => [...prev, username])
+    // Emit typing indicator
+    if (value.trim()) {
+      socket.emit('user:typing', true)
     }
     
     // Clear typing timeout
@@ -190,8 +252,8 @@ export default function Chat() {
     
     // Set timeout to remove typing indicator
     typingTimeoutRef.current = setTimeout(() => {
-      setIsTyping(prev => prev.filter(user => user !== username))
-    }, 1000)
+      socket.emit('user:typing', false)
+    }, 1000) as unknown as number
   }
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -210,30 +272,13 @@ export default function Chat() {
   }
 
   const addReaction = (messageId: string, emoji: string) => {
-    setMessages(prev => prev.map(msg => {
-      if (msg.id === messageId) {
-        const reactions = { ...msg.reactions } || {}
-        if (!reactions[emoji]) {
-          reactions[emoji] = []
-        }
-        
-        if (reactions[emoji].includes(username)) {
-          reactions[emoji] = reactions[emoji].filter(user => user !== username)
-          if (reactions[emoji].length === 0) {
-            delete reactions[emoji]
-          }
-        } else {
-          reactions[emoji].push(username)
-        }
-        
-        return { ...msg, reactions }
-      }
-      return msg
-    }))
+    // Emit reaction to server
+    socket.emit('message:react', { messageId, emoji })
   }
 
   const deleteMessage = (messageId: string) => {
-    setMessages(prev => prev.filter(msg => msg.id !== messageId))
+    // Emit delete to server
+    socket.emit('message:delete', messageId)
     setSelectedMessage(null)
   }
 
@@ -247,11 +292,12 @@ export default function Chat() {
   const saveEditedMessage = () => {
     if (!editingMessage || !currentMessage.trim()) return
     
-    setMessages(prev => prev.map(msg =>
-      msg.id === editingMessage
-        ? { ...msg, message: currentMessage.trim(), isEdited: true }
-        : msg
-    ))
+    // Emit edit to server
+    socket.emit('message:edit', {
+      messageId: editingMessage,
+      message: currentMessage.trim()
+    })
+    
     setEditingMessage(null)
     setCurrentMessage('')
   }
