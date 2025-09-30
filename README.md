@@ -1,6 +1,6 @@
 # Mema Chat 💬
 
-A modern, feature-rich chat application built with React, TypeScript, Tailwind CSS, and Vite.
+A modern, feature-rich real-time chat application built with React, TypeScript, Tailwind CSS, Socket.IO, and Vite.
 
 ![Mema Chat](https://img.shields.io/badge/Status-Live-brightgreen) ![Version](https://img.shields.io/badge/Version-1.0.0-blue) ![License](https://img.shields.io/badge/License-MIT-green)
 
@@ -8,24 +8,42 @@ A modern, feature-rich chat application built with React, TypeScript, Tailwind C
 
 ```bash
 npm install
-npm run dev  # Development (http://localhost:5173)
-npm run start  # Production (http://localhost:3000)
+
+# Run both frontend and backend
+npm run dev:all
+
+# Or run separately:
+npm run dev          # Frontend only (http://localhost:5173)
+npm run dev:backend  # Backend only (http://localhost:3001)
+
+# Production
+npm run build        # Build frontend
+npm run server       # Start backend server
 ```
 
 ## ✨ Features
 
-- **💬 Enhanced Chat:** Message reactions, replies, editing, search, emoji picker
-- **👥 User System:** Colorful avatars, online status, typing indicators  
+- **💬 Real-time Chat:** Instant messaging with WebSocket (Socket.IO)
+- **👥 Multi-user Support:** Connect with multiple users simultaneously
+- **📝 Message Features:** Reactions, replies, editing, search, emoji picker
+- **👤 User System:** Colorful avatars, online status, typing indicators  
 - **🎨 Modern UI:** Dark/light mode, smooth animations, mobile responsive
-- **⚡ Real-time:** Instant messaging with delivery status indicators
+- **⚡ Live Updates:** Real-time user join/leave, message delivery status
 - **🔧 Professional:** Video/voice call buttons, search, keyboard shortcuts
 
 ## 🛠 Tech Stack
 
+### Frontend
 - **React 19** + TypeScript for robust development
 - **Tailwind CSS 4.1** for modern styling
 - **Vite 7.1** for lightning-fast builds
+- **Socket.IO Client** for real-time communication
 - **Lucide React** for beautiful icons
+
+### Backend
+- **Node.js** + Express for server
+- **Socket.IO** for WebSocket connections
+- **CORS** for cross-origin support
 
 ## 🌐 Deploy
 
@@ -39,11 +57,28 @@ npm run start  # Production (http://localhost:3000)
 ```
 src/
 ├── components/
-│   ├── Chat.tsx    # Enhanced chat with reactions, replies, editing
-│   └── Home.tsx    # Professional landing page
-├── App.tsx         # Router setup
-└── main.tsx        # Entry point
+│   ├── Chat.tsx       # Real-time chat with Socket.IO integration
+│   └── Home.tsx       # Professional landing page
+├── socket.ts          # Socket.IO client configuration
+├── App.tsx            # Router setup
+└── main.tsx           # Entry point
+
+server/
+├── index.js           # WebSocket server with Socket.IO
+├── package.json       # Module configuration
+└── README.md          # Backend documentation
 ```
+
+## 🌐 Backend API
+
+The backend provides real-time WebSocket communication:
+
+- **User Management:** Join/leave events, online user tracking
+- **Messaging:** Send, edit, delete messages with real-time sync
+- **Interactions:** Reactions, replies, typing indicators
+- **History:** Last 100 messages preserved for new users
+
+See [server/README.md](server/README.md) for detailed API documentation.
 
 ## 🎯 Chat Features
 
